@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qianfeng.dao.ProductMapper">
+  <resultMap id="BaseResultMap" type="com.qianfeng.pojo.Product">
+    <id column="product_id" jdbcType="INTEGER" property="productId" />
+    <result column="product_name" jdbcType="VARCHAR" property="productName" />
+    <result column="price" jdbcType="REAL" property="price" />
+    <result column="sale_price" jdbcType="REAL" property="salePrice" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+    <result column="image_url" jdbcType="VARCHAR" property="imageUrl" />
+    <result column="type_id" jdbcType="INTEGER" property="typeId" />
+    <result column="color" jdbcType="VARCHAR" property="color" />
+    <result column="version" jdbcType="VARCHAR" property="version" />
+    <result column="introduce" jdbcType="VARCHAR" property="introduce" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_product
+    where product_id = #{productId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qianfeng.pojo.Product">
+    insert into tb_product (product_id, product_name, price, 
+      sale_price, count, image_url, 
+      type_id, color, version, 
+      introduce)
+    values (#{productId,jdbcType=INTEGER}, #{productName,jdbcType=VARCHAR}, #{price,jdbcType=REAL}, 
+      #{salePrice,jdbcType=REAL}, #{count,jdbcType=INTEGER}, #{imageUrl,jdbcType=VARCHAR}, 
+      #{typeId,jdbcType=INTEGER}, #{color,jdbcType=VARCHAR}, #{version,jdbcType=VARCHAR}, 
+      #{introduce,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.qianfeng.pojo.Product">
+    update tb_product
+    set product_name = #{productName,jdbcType=VARCHAR},
+      price = #{price,jdbcType=REAL},
+      sale_price = #{salePrice,jdbcType=REAL},
+      count = #{count,jdbcType=INTEGER},
+      image_url = #{imageUrl,jdbcType=VARCHAR},
+      type_id = #{typeId,jdbcType=INTEGER},
+      color = #{color,jdbcType=VARCHAR},
+      version = #{version,jdbcType=VARCHAR},
+      introduce = #{introduce,jdbcType=VARCHAR}
+    where product_id = #{productId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select product_id, product_name, price, sale_price, count, image_url, type_id, color, 
+    version, introduce
+    from tb_product
+    where product_id = #{productId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select product_id, product_name, price, sale_price, count, image_url, type_id, color, 
+    version, introduce
+    from tb_product
+  </select>
+  <select id="getListByTypeId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from tb_product
+    where type_id=#{tid}
+  </select>
+</mapper>
